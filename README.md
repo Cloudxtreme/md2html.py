@@ -36,7 +36,7 @@ matching `*.md` and `*.markdown`).
 $ md2html.py --watch .
 ```
 
-With optional `--output-dir`:
+`--watch` with optional `--output-dir`:
 
 ```bash
 $ md2html.py --watch --output-dir /tmp .
