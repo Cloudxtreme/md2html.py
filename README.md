@@ -4,9 +4,9 @@ md2html.py
 Renders Github Flavored Markdown files to HTML, optionally wrapped in a custom
 Jinja2 template.
 
-Has a watch option to watch for filesystem changes, which can be used to give
-near instant previews in combination with some live reload mechanism, for
-example _Auto Reload_ in Firefox
+Has a watch option to watch for filesystem changes. This was the main point of
+writing this, and can be used to give near instant previews in combination with
+some live reload mechanism, for example _Auto Reload_ in Firefox
 (https://addons.mozilla.org/en-US/firefox/addon/auto-reload/).
 
 Written while learning Python, so use at own risk.
