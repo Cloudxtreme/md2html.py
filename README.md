@@ -51,17 +51,17 @@ $ md2html.py --template template.html hello.md > hello.html
 Options
 -------
 
-### `--watch`
+#### `--watch`
 
 Watches filesystem for changes, `infile` is treated as a path using this option.
 
-### `--template TEMPLATE`
+#### `--template TEMPLATE`
 
 Wrap rendered HTML in given template. Can be either filesystem path or URL.
 Defaults to hotlinking to
 https://raw.github.com/dfh/md2html.py/master/templates/default.html
 
-### `--output-dir DIR`
+#### `--output-dir DIR`
 
 Write output to `DIR`, defaults to `.`.
 
