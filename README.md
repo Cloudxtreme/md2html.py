@@ -1,8 +1,8 @@
 md2html.py
 ==========
 
-Renders Github Flavored Markdown files to HTML, optionally wrapped in a custom
-Jinja2 template.
+CLI script that renders Github Flavored Markdown files to HTML, optionally
+wrapped in a custom Jinja2 template.
 
 Has a watch option to watch for filesystem changes. This was the main point of
 writing this, and can be used to give near instant previews in combination with
@@ -48,8 +48,14 @@ With a custom template file:
 $ md2html.py --template template.html hello.md > hello.html
 ```
 
-Options
--------
+Parameters
+----------
+
+### Required
+
+Only one parameter is required: the input file. See examples above.
+
+### Optional
 
 #### `--watch`
 
