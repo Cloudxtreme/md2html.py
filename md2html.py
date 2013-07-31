@@ -5,6 +5,7 @@ import time
 import argparse
 import os
 import tempfile
+import urllib2
 from subprocess import call
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -13,8 +14,8 @@ from jinja2 import Template
 parser = argparse.ArgumentParser(
 	description='Renders Github Flavored Markdown files to HTML, optionally ' + \
 		'using a custom Jinja2 template. Can also watch given path for ' + \
-		'changes, using the --watch option. Required "marked" for Markdown ' + \
-		'rendering, see https://github.com/chjj/marked.')
+		'changes, using the --watch option. Uses the "marked" Markdown ' + \
+		'parser (https://github.com/chjj/marked.')
 
 parser.add_argument(
 	'infile',
@@ -35,17 +36,28 @@ parser.add_argument(
 parser.add_argument(
 	'--template',
 	type=str,
-	default=None,
-	help='Jinja2 template file to wrap the rendered Markdown in.' + \
+	default='https://raw.github.com/dfh/md2html.py/dev/templates/default.html',
+	help='Jinja2 template file to wrap the rendered Markdown in. ' + \
 		'Available context: content, timestamp, program_name.'
+)
+parser.add_argument(
+	'--output-dir',
+	type=str,
+	default='.',
+	help='Directory to write HTML output to, if using the --watch option.'
 )
 
 args = parser.parse_args()
 
 template = None
 if (args.template):
-	with open(args.template, 'r') as template_file:
-		template = Template(template_file.read())
+	# no, this isn't very pretty, but i don't know how to do it properly yet
+	# (just started learning Python!)
+	if (args.template[:4] == 'http'):
+		template = Template(urllib2.urlopen(args.template).read())
+	else:
+		with open(args.template, 'r') as template_file:
+			template = Template(template_file.read())
 
 
 def markdown2html(in_fname, template=None, verbose=False):
@@ -82,7 +94,7 @@ class RenderMarkdownEventHandler(FileSystemEventHandler):
 		else:
 			in_fname, in_ext = os.path.splitext(event.src_path)
 			if (in_ext == '.md' or in_ext == '.markdown'):
-				out_fname = in_fname + '.html'
+				out_fname = os.path.join(args.output_dir, os.path.basename(in_fname) + '.html')
 				with open(out_fname, 'w') as out_file:
 					content = markdown2html(event.src_path, template=template,
 						verbose=args.verbose)
