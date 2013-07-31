@@ -19,8 +19,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument(
 	'infile',
-	type=str,
-	default='.'
+	type=str
 )
 parser.add_argument(
 	'--verbose',
@@ -36,7 +35,7 @@ parser.add_argument(
 parser.add_argument(
 	'--template',
 	type=str,
-	default='https://raw.github.com/dfh/md2html.py/dev/templates/default.html',
+	default='https://raw.github.com/dfh/md2html.py/master/templates/default.html',
 	help='Jinja2 template file to wrap the rendered Markdown in. ' + \
 		'Available context: content, timestamp, program_name.'
 )
@@ -94,7 +93,8 @@ class RenderMarkdownEventHandler(FileSystemEventHandler):
 		else:
 			in_fname, in_ext = os.path.splitext(event.src_path)
 			if (in_ext == '.md' or in_ext == '.markdown'):
-				out_fname = os.path.join(args.output_dir, os.path.basename(in_fname) + '.html')
+				out_fname = os.path.join(args.output_dir,
+					os.path.basename(in_fname) + '.html')
 				with open(out_fname, 'w') as out_file:
 					content = markdown2html(event.src_path, template=template,
 						verbose=args.verbose)
