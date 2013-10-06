@@ -51,6 +51,9 @@ footer {
 h1 {
 	margin: 0.5em 0 1em 0;
 }
+h2 {
+	position: relative;
+}
 h2, h3 {
 	border-bottom: 1px solid #ddd;
 	margin: 2.5em 0 1em;
@@ -106,4 +109,12 @@ p code {
 	display: inline-block;
 	background: #f6f6f6;
 	border: 1px solid #ddd;
+}
+
+.toc-link {
+	font-size: 14px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	text-decoration: none;
 }
